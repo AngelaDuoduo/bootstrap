@@ -6,7 +6,7 @@
  * details, see http://creativecommons.org/licenses/by/3.0/.
  */
 
-/* jshint forin:false */
+/* jshint browser:true */
 /* global JSZip, less, saveAs, uglify, __js, __less, __fonts */
 
 window.onload = function () { // wait for load in a dumb way because B-0
@@ -119,7 +119,9 @@ window.onload = function () { // wait for load in a dumb way because B-0
       }
       if (data.vars) {
         for (var i in data.vars) {
-          $('input[data-var="' + i + '"]').val(data.vars[i])
+          if (data.vars.hasOwnProperty(i)) {
+            $('input[data-var="' + i + '"]').val(data.vars[i])
+          }
         }
       }
     })
@@ -138,21 +140,27 @@ window.onload = function () { // wait for load in a dumb way because B-0
     if (css) {
       var cssFolder = zip.folder('css')
       for (var fileName in css) {
-        cssFolder.file(fileName, css[fileName])
+        if (css.hasOwnProperty(fileName)) {
+          cssFolder.file(fileName, css[fileName])
+        }
       }
     }
 
     if (js) {
       var jsFolder = zip.folder('js')
       for (var jsFileName in js) {
-        jsFolder.file(jsFileName, js[jsFileName])
+        if (js.hasOwnProperty(jsFileName)) {
+          jsFolder.file(jsFileName, js[jsFileName])
+        }
       }
     }
 
     if (fonts) {
       var fontsFolder = zip.folder('fonts')
       for (var fontsFileName in fonts) {
-        fontsFolder.file(fontsFileName, fonts[fontsFileName], { base64: true })
+        if (fonts.hasOwnProperty(fontsFileName)) {
+          fontsFolder.file(fontsFileName, fonts[fontsFileName], { base64: true })
+        }
       }
     }
 
@@ -169,7 +177,9 @@ window.onload = function () { // wait for load in a dumb way because B-0
     var result = ''
 
     for (var key in vars) {
-      result += key + ': ' + vars[key] + ';\n'
+      if (vars.hasOwnProperty(key)) {
+        result += key + ': ' + vars[key] + ';\n'
+      }
     }
 
     return result + '\n\n'

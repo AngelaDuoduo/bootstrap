@@ -9,6 +9,7 @@
  * details, see http://creativecommons.org/licenses/by/3.0/.
  */
 
+/* jshint browser:true */
 
 !(function ($) {
   'use strict';
